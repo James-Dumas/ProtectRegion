@@ -39,10 +39,10 @@ public class Region
     public boolean contains(Location location)
     {
         return world.equals(location.getWorld())
-               && (int) location.getX() > 0 == x1 > 0 && Math.abs((int) location.getX()) >= Math.abs(x1)
-               && (int) location.getX() > 0 == x2 > 0 && Math.abs((int) location.getX()) <= Math.abs(x2)
-               && (int) location.getZ() > 0 == z1 > 0 && Math.abs((int) location.getZ()) >= Math.abs(z1)
-               && (int) location.getZ() > 0 == z2 > 0 && Math.abs((int) location.getZ()) <= Math.abs(z2);
+               && location.getBlockX() >= x1
+               && location.getBlockX() <= x2
+               && location.getBlockZ() >= z1
+               && location.getBlockZ() <= z2;
     }
 
     public boolean overlaps(Region other)
