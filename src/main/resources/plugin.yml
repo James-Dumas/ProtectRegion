@@ -1,0 +1,47 @@
+name: ProtectRegion
+version: ${project.version}
+main: net.dottsg.protectregion.ProtectRegion
+api-version: 1.14
+authors: [Jamac, foopis23]
+description: Basic grief protection for admins
+website: dottsg.net
+commands:
+  protectregion:
+    description: Creates a protected region
+    permission: region.create
+    usage: /protectregion <x1> <z1> <x2> <z2> <region name>
+  removeregion:
+    description: Removes a protected region
+    permission: region.remove
+    usage: /unprotectregion [<region name>]
+  listregions:
+    description: Lists all protected regions
+    permission: region.view
+    usage: /listregions
+  regioninfo:
+    description: Display information about a region
+    permission: region.view
+    usage: /regioninfo [<region name>]
+  setregioncombat:
+    description: Changes the allowed combat type in a region
+    permission: region.setcombatstate
+    usage: /setregioncombat [<region name>] <disabled|pvp|pve|enabled>
+permissions:
+  region.create:
+    description: Allows protected region creation
+    default: op
+  region.remove:
+    description: Allows protected region deletion
+    default: op
+  region.view:
+    description: Allows viewing info about regions
+    default: op
+  region.setcombatstate:
+    description: Allows controlling combat state of a region
+    default: op
+  region.edit:
+    description: Allows building in protected regions
+    default: op
+  region.attackentity:
+    description: Allows damaging entities in protected regions
+    default: op
