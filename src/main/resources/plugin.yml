@@ -25,7 +25,7 @@ commands:
   setregioncombat:
     description: Changes the allowed combat type in a region
     permission: region.setcombatstate
-    usage: /setregioncombat [<region name>] <disabled|pvp|pve|enabled>
+    usage: /setregioncombat <disabled|pvp|pve|enabled> [<region name>]
 permissions:
   region.create:
     description: Allows protected region creation

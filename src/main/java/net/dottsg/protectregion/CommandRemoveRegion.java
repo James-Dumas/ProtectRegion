@@ -2,11 +2,14 @@ package net.dottsg.protectregion;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
-public class CommandRemoveRegion implements CommandExecutor
+import java.util.ArrayList;
+import java.util.List;
+
+public class CommandRemoveRegion implements TabExecutor
 {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
@@ -59,6 +62,18 @@ public class CommandRemoveRegion implements CommandExecutor
         }
 
         return true;
+    }
+
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args)
+    {
+        List<String> list = new ArrayList<>();
+        if(args.length == 1)
+        {
+            list.addAll(ProtectRegion.regionManager.regions.keySet());
+            list.sort(String::compareToIgnoreCase);
+        }
+
+        return list;
     }
 }
 

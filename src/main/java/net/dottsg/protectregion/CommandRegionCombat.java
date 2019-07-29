@@ -2,11 +2,14 @@ package net.dottsg.protectregion;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
-public class CommandRegionCombat implements CommandExecutor
+import java.util.ArrayList;
+import java.util.List;
+
+public class CommandRegionCombat implements TabExecutor
 {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
@@ -45,18 +48,18 @@ public class CommandRegionCombat implements CommandExecutor
             }
             else // args.length == 2
             {
-                if(ProtectRegion.regionManager.regions.containsKey(args[0]))
+                if(ProtectRegion.regionManager.regions.containsKey(args[1]))
                 {
-                    region = ProtectRegion.regionManager.regions.get(args[0]);
+                    region = ProtectRegion.regionManager.regions.get(args[1]);
                 }
                 else
                 {
-                    sender.sendMessage(ChatColor.RED + "No region named '" + args[0] + "'.");
+                    sender.sendMessage(ChatColor.RED + "No region named '" + args[1] + "'.");
                 }
 
-                if(CombatState.hasValueOf(args[1]))
+                if(CombatState.hasValueOf(args[0]))
                 {
-                    state = CombatState.valueOf(args[1].toUpperCase());
+                    state = CombatState.valueOf(args[0].toUpperCase());
                 }
                 else
                 {
@@ -77,5 +80,26 @@ public class CommandRegionCombat implements CommandExecutor
         }
 
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args)
+    {
+        List<String> list = new ArrayList<>();
+       switch(args.length)
+       {
+           case 1:
+               list.add("disabled");
+               list.add("pvp");
+               list.add("pve");
+               list.add("enabled");
+               break;
+
+           case 2:
+               list.addAll(ProtectRegion.regionManager.regions.keySet());
+               list.sort(String::compareToIgnoreCase);
+       }
+
+       return list;
     }
 }

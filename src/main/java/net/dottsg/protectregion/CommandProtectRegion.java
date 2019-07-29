@@ -2,11 +2,14 @@ package net.dottsg.protectregion;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
-public class CommandProtectRegion implements CommandExecutor
+import java.util.ArrayList;
+import java.util.List;
+
+public class CommandProtectRegion implements TabExecutor
 {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
@@ -60,5 +63,31 @@ public class CommandProtectRegion implements CommandExecutor
         }
 
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args)
+    {
+        List<String> list = new ArrayList<>();
+        Player player = (Player) sender;
+        switch(args.length)
+        {
+            case 1:
+                list.add(Integer.toString(player.getLocation().getBlockX()));
+                break;
+
+            case 2:
+                list.add(Integer.toString(player.getLocation().getBlockZ()));
+                break;
+
+            case 3:
+                list.add(Integer.toString(player.getLocation().getBlockX()));
+                break;
+
+            case 4:
+                list.add(Integer.toString(player.getLocation().getBlockZ()));
+        }
+
+        return list;
     }
 }
